@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: guestbook-ui
-        image: public.ecr.aws/runatlantis/atlantis-example-guestbook:latest
+        image: nginx:alpine
         ports:
         - containerPort: 80
