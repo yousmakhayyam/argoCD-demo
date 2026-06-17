@@ -1,0 +1,45 @@
+﻿apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: https-redirect
+  namespace: traefik
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-ingress-http
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`18.215.189.136.nip.io`)
+      kind: Rule
+      middlewares:
+        - name: https-redirect
+      services:
+        - name: argocd-server
+          namespace: argocd
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-ingress
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`18.215.189.136.nip.io`)
+      kind: Rule
+      services:
+        - name: argocd-server
+          namespace: argocd
+          port: 80
+  tls:
+    secretName: argocd-tls-prod
