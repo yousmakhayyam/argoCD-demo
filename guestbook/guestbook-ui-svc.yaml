@@ -2,9 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: guestbook-ui
-spec:            
-  ports:
-  - port: 80
-    targetPort: 80
+  namespace: sample-app
+spec:
+  type: LoadBalancer  
   selector:
     app: guestbook-ui
+  ports:
+    - port: 80
+      targetPort: 80
