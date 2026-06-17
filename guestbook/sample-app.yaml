@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/yousmakhayyam/argoCD-demo
     targetRevision: HEAD
-    path: guestbook
+    path: .
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-app
